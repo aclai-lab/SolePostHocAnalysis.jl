@@ -25,10 +25,33 @@ using SoleModels: bestguess, evaluaterule
 
 using Statistics: cor
 
-export intrees
+using SoleModels: RuleExtractor
+import SoleModels: isexact, extractrules
+
+export InTreesRuleExtractor
 include("intrees.jl")
 
-export bellatrex
+export BellatrexRuleExtractor
 include("bellatrex.jl")
+
+export lumen, Lumen
+export LumenRuleExtractor
+
+#export batrees, BATrees #TODO here
+
+using SoleModels: RuleExtractor
+import SoleModels: isexact, extractrules
+
+"""
+Pagliarini, Giovanni, et al. "Minimal Rules from Decision Forests: a Systematic Approach." OVERLAY@ AI* IA. 2024.
+
+See also [`extractrules`](@ref), [`intrees`](@ref), [`RuleExtractor`](@ref).
+"""
+struct LumenRuleExtractor <: RuleExtractor end
+
+extractrules(::LumenRuleExtractor, m, args...; kwargs...) = Lumen.lumen(m, args...; kwargs...)
+
+include("lumen/main.jl")
+#include("BA-Trees/src/main.jl") #TODO here
 
 end
